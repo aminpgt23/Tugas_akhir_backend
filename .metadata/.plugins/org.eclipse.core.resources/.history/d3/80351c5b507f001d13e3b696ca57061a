@@ -1,0 +1,58 @@
+package com.example.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.model.tb_user;
+import com.example.service.IUserService;
+
+
+@RestController
+@CrossOrigin(origins ="http://localhost:8082")
+@RequestMapping("/api/user")
+public class userController {
+	 @Autowired
+	  IUserService userService;
+	
+	@PostMapping("/insert")
+	  public tb_user insertUser(@RequestBody tb_user user) {
+		return userService.insertUser(user);
+		  
+	  }
+	
+	  @PutMapping("/update/{Id}")
+	  public tb_user updateUser( @PathVariable int Id, @RequestBody tb_user user) {
+		return userService.updateUser(Id, user);
+		  
+	  }
+	  @DeleteMapping("/delete/{Id}")
+	  public tb_user deleteUser(@PathVariable int Id) {
+		  return userService.deleteUser(Id);
+	  }
+	  
+	  
+	  @GetMapping("/getById/{Id}")
+	  public tb_user getIdUser(@PathVariable int Id) {
+		  return userService.getIdUser(Id);
+	  }
+	
+		@GetMapping("/getAll")
+		public List<tb_user> getAllUser(){
+			return userService.getAllUser();
+		}
+		
+		@PostMapping("/login")
+		public tb_user loginUser(@RequestBody tb_user user) {
+			return userService.loginUser(user);
+		}
+}
